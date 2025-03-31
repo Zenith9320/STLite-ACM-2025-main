@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <map>
 #include <ctime>
-#include "exceptions.hpp"
-#include "map.hpp"
+#include "/home/entong/STLite-ACM-2025-main/map/src/exceptions.hpp"
+#include "/home/entong/STLite-ACM-2025-main/map/src/map.hpp"
 
 const int MAXN = 50001;
 

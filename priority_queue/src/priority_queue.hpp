@@ -36,7 +36,12 @@ template<typename T>
 node<T>* make_node(const T &value) {
   node<T>* temp;
 	temp = (node<T>*)malloc(sizeof(node<T>));
-	new (&temp->data) T(value);
+	try {
+  	new (&temp->data) T(value);
+	} catch(...) {
+		free(temp);
+		throw;
+	}
 	temp->order = 0;
   temp->child = nullptr;
 	temp->parent = nullptr;
@@ -130,7 +135,7 @@ public:
 			try {
 				comp(ans->data, cur->data);
 			} catch(...) {
-				throw;
+				throw runtime_error();
 			}
 			if (comp(ans->data, cur->data)) {
 				ans = cur;
@@ -158,14 +163,14 @@ public:
 			try {
 				comp(head->data, e);
 			} catch (...) {
-				throw;
+				throw runtime_error();
 			}
 			try {
         merge(temp_queue);
 			} catch (...) {
 				temp->data.~T();
 				free(temp);
-				throw;
+				throw runtime_error();
 			}
 			temp_queue.head = nullptr;
     }
@@ -193,7 +198,7 @@ public:
 		    cur = cur->sibling;
 		  }
 		} catch(...) {
-			throw;
+			throw runtime_error();
 		}
 
 		node<T> *pre, *pos;
@@ -237,7 +242,7 @@ public:
 		} catch (...) {
 		  this->head = Merge(head, temp);
 		  this->length = f_length;
-		  throw;
+		  throw runtime_error();
 		}
 		top->data.~T();
 		free(top);
@@ -268,7 +273,28 @@ public:
 	 */
 	void merge(priority_queue &other) {
 		Compare comp;
-		if (other.empty() || this == &other) return; 
+		if (other.empty() || this == &other) return;
+		auto check = head;
+		T check_1 = T();
+		while (check != nullptr) {
+      try {
+			  comp(check_1, check->data);
+			} catch (...) {
+				check = nullptr;
+				throw runtime_error();
+			}
+			check = check->sibling;
+		}
+		check = other.head;
+		while (check != nullptr) {
+      try {
+			  comp(check_1, check->data);
+			} catch (...) {
+				check = nullptr;
+				throw runtime_error();
+			}
+			check = check->sibling;
+		} 
     priority_queue temp;
 		node<T>* Head = nullptr;
 		Head = Merge((*this).head, other.head);
@@ -300,7 +326,7 @@ public:
 		  }
 		} catch(...) {
 			Head = nullptr;
-      throw;
+      throw runtime_error();
 		}
 	  head = Head;
 		temp.head = nullptr;
@@ -325,7 +351,12 @@ public:
 	node<T>* copy_node(const node<T>* src, node<T>* parent) {
     if (!src) return nullptr;
     node<T>* newNode = (node<T>*)malloc(sizeof(node<T>));
-    new (&newNode->data) T(src->data);
+    try {
+		  new (&newNode->data) T(src->data); 
+		} catch (...) {
+		  free(newNode);
+		  throw;
+		}
     newNode->order = src->order;
     newNode->parent = parent;
     newNode->child = copy_node(src->child, newNode);

@@ -1,4 +1,4 @@
-#include "map.hpp"
+#include "/home/entong/STLite-ACM-2025-main/map/src/map.hpp"
 #include <iostream>
 #include <cassert>
 #include <string>
@@ -83,6 +83,7 @@ int main(void) {
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(0);
 	std::cout.tie(0);
+	freopen("输出文件.out", "w", stdout);
 	tester();
 	std::cout << Integer::counter << std::endl;
 }

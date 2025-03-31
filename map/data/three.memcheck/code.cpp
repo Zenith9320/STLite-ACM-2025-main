@@ -8,7 +8,7 @@
 #include<cstdlib>
 #include<cstring>
 #include<algorithm>
-#include "map.hpp"
+#include "/home/entong/STLite-ACM-2025-main/map/src/map.hpp"
 
 using namespace std;
 
@@ -16,14 +16,14 @@ bool check1(){ //insert by []
 	int a, b;
 	sjtu::map<int, int> Q;
 	std::map<int, int> stdQ;	
-	for(int i = 1; i <= 10000; i++){
+	for(int i = 1; i <= 100000; i++){
 		a = rand(); b = rand();
 		if(!Q.count(a)){
 			Q[a] = b; stdQ[a] = b;
 		}
 	}
 	sjtu::map<int, int> :: value_type pp;
-	for(int i = 1; i <= 10000; i++){
+	for(int i = 1; i <= 100000; i++){
 		a = rand(); b = rand();
 		if(!Q.count(a)){
 			Q.insert(sjtu::map<int, int> :: value_type(a, b));
@@ -191,7 +191,7 @@ bool check6(){ // copy test
 	sjtu::map<int, int> Q1;
 	std::map<int, int> stdQ;
 	sjtu::map<int, int> :: value_type pp;
-	for(int i = 1; i <= 1000; i++){
+	for(int i = 1; i <= 10000; i++){
 		a = rand(); b = rand();
 		if(!Q1.count(a)){
 			Q1.insert(sjtu::pair<int, int>(a, b));
@@ -237,7 +237,7 @@ bool check7(){ //"=" operator
 	sjtu::map<int, int> Q1;
 	std::map<int, int> stdQ;
 	sjtu::map<int, int> :: value_type pp;
-	for(int i = 1; i <= 1000; i++){
+	for(int i = 1; i <= 10000; i++){
 		a = rand(); b = rand();
 		if(!Q1.count(a)){
 			Q1.insert(sjtu::map<int, int> :: value_type(a, b));
@@ -619,4 +619,3 @@ int main(){
 	if(!check14()) cout << "Test 14 Failed......" << endl; else cout << "Test 14 Passed!" << endl;
 	return 0;
 }
-

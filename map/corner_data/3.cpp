@@ -1,14 +1,20 @@
-#include "src.hpp"
+#include "/home/entong/STLite-ACM-2025-main/map/src/map.hpp"
 #include <iostream>
 
 signed main() {
     sjtu::map <int, int> mp;
     auto x = mp.insert({666, 1}).first;
-    for (int i = 0 ; i <= 114514 ; ++i) mp.insert({i, i});
-
+    for (int i = 0 ; i <= 114514 ; ++i) {
+        mp.insert({i, i});
+    }
     // Iterator should never go invalid.
     // This is map, not vector.
-    while (x != ++ -- mp.end()) mp.erase(x++);
+    while (x != ++ -- mp.end()) {
+        auto temp = x;
+        x++;
+        mp.erase(temp);
+        std::cout << "should delete: " << temp.getptr() << std::endl;
+    }
     std::cout << mp.size() << '\n';
 
     // Multiple clear should be safe.
